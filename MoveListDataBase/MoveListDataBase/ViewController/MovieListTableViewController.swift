@@ -18,6 +18,8 @@ class MovieListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar.delegate.self
     }
     
     // MARK: - Properties
@@ -25,8 +27,6 @@ class MovieListTableViewController: UITableViewController {
     
 
     // MARK: - Table view data source
-
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
@@ -35,8 +35,27 @@ class MovieListTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as? MovieTableViewCell else { return UITableViewCell() }
         
         let movie = movies[indexPath.row]
+        cell.setConfiguration(with: movie)
 
 
         return cell
+    }
+}
+
+// MARK: - Extensions
+extension MovieListTableViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        guard let searchTerm = searchBar.text, !searchTerm.isEmpty else { return }
+        
+        MovieController.fetchMovieWith(searchTerm: searchTerm) { movies in
+            guard let movies = movies else { return }
+            self.movies = movies
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
 }

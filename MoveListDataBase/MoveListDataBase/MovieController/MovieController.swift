@@ -14,9 +14,10 @@ class MovieController {
         // construct URL
         guard let baseURL = URL(string: Constants.MovieURL.movieBaseURL) else { completion(nil) ; return }
         var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
-        let apKeyQuery = URLQueryItem(name: Constants.MovieURL.apiKeyKey, value: Constants.MovieURL.apiKeyValue)
+        let apiKeyQuery = URLQueryItem(name: Constants.MovieURL.apiKeyKey, value: Constants.MovieURL.apiKeyValue)
         let searchQuery = URLQueryItem(name: Constants.MovieURL.movieQueryKey, value: searchTerm)
         let filterQuery = URLQueryItem(name: Constants.MovieURL.adultQueryKey, value: Constants.MovieURL.adultFilterValue)
+        urlComponents?.queryItems = [apiKeyQuery, searchQuery, filterQuery]
         
         guard let finalURL = urlComponents?.url else {completion(nil) ; return}
         print(finalURL)
