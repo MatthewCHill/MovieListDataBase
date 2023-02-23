@@ -20,5 +20,32 @@ class MovieController {
         
         guard let finalURL = urlComponents?.url else {completion(nil) ; return}
         print(finalURL)
+        
+        // fetch data with URL
+        URLSession.shared.dataTask(with: finalURL) { data, response, error in
+            
+            if let error = error {
+                print(error.localizedDescription)
+                completion(nil)
+                return
+            }
+            if let response = response as? HTTPURLResponse {
+                print(response.statusCode)
+            }
+            guard let data = data else { completion(nil) ; return}
+            
+            do {
+                let topLevel = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String : Any]
+                
+                guard let movieArray = topLevel?["results"] as? [[String : Any]] else { completion(nil); return }
+                
+                let movies = movieArray.compactMap {Movie(dictionary: $0)}
+                completion(movies)
+            } catch {
+                print(error.localizedDescription)
+                completion(nil)
+                return
+            }
+        } .resume()
     }
 }
