@@ -5,7 +5,7 @@
 //  Created by Matthew Hill on 2/23/23.
 //
 
-import Foundation
+import UIKit
 
 class MovieController {
     
@@ -47,6 +47,32 @@ class MovieController {
                 completion(nil)
                 return
             }
+        } .resume()
+    }
+
+    static func fetchMovieImage(forMovie: Movie, completion: @escaping (UIImage?) -> Void) {
+    
+        guard let baseURL = URL(string: Constants.MovieURL.imageBaseURL) else { completion(nil) ;  return}
+        var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
+        urlComponents?.path.append(contentsOf: forMovie.imagePath)
+        guard let finalURL = urlComponents?.url else { completion(nil); return }
+        print(finalURL)
+        
+        // Data Tasking
+        URLSession.shared.dataTask(with: finalURL) { data, response, error in
+            
+            if let error = error {
+                print(error.localizedDescription)
+                completion(nil)
+                return
+            }
+            if let response = response as? HTTPURLResponse {
+                print(response.statusCode)
+            }
+            guard let data = data else { completion(nil); return}
+            
+            let poster = UIImage(data: data)
+            completion(poster)
         } .resume()
     }
 }
