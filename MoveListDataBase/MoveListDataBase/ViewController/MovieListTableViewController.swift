@@ -35,7 +35,7 @@ class MovieListTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as? MovieTableViewCell else { return UITableViewCell() }
         
         let movie = movies[indexPath.row]
-        cell.setConfiguration(with: movie)
+        cell.updateViews(movie: movie)
 
 
         return cell

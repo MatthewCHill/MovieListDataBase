@@ -24,16 +24,65 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="movieCell" id="wO8-6h-tRd" customClass="MovieTableViewCell" customModule="MoveListDataBase" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="94" width="393" height="43.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="movieCell" rowHeight="100" id="wO8-6h-tRd" customClass="MovieTableViewCell" customModule="MoveListDataBase" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="94" width="393" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wO8-6h-tRd" id="Xbd-aj-pEe">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="NRf-8c-Day">
+                                            <rect key="frame" x="20" y="11" width="353" height="78"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vc5-Go-DIM">
+                                                    <rect key="frame" x="0.0" y="0.0" width="52" height="78"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="78" id="Bro-ee-rIy"/>
+                                                        <constraint firstAttribute="width" secondItem="Vc5-Go-DIM" secondAttribute="height" multiplier="2:3" id="nul-1k-rZY"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="cKN-Q7-lFc">
+                                                    <rect key="frame" x="80" y="0.0" width="273" height="69"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(title)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rbS-Oh-PHM">
+                                                            <rect key="frame" x="0.0" y="0.0" width="273" height="20.333333333333332"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(rating)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0R-Be-nba">
+                                                            <rect key="frame" x="0.0" y="24.333333333333336" width="273" height="20.333333333333336"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(overview)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTh-uH-L7L">
+                                                            <rect key="frame" x="0.0" y="48.666666666666664" width="273" height="20.333333333333336"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="NRf-8c-Day" firstAttribute="top" secondItem="Xbd-aj-pEe" secondAttribute="topMargin" id="6C7-e6-WaV"/>
+                                        <constraint firstItem="NRf-8c-Day" firstAttribute="leading" secondItem="Xbd-aj-pEe" secondAttribute="leadingMargin" id="8aN-L2-pHT"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="NRf-8c-Day" secondAttribute="trailing" id="HR6-Hv-Yb1"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="NRf-8c-Day" secondAttribute="bottom" id="QbP-Wr-3o1"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" notEnabled="YES"/>
                                 </accessibility>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="jTh-uH-L7L" id="s6w-Km-AZO"/>
+                                    <outlet property="moviePosterImageView" destination="Vc5-Go-DIM" id="2g8-8u-DKL"/>
+                                    <outlet property="movieRatingLabel" destination="d0R-Be-nba" id="jeJ-KS-fbv"/>
+                                    <outlet property="movieTitleLabel" destination="rbS-Oh-PHM" id="Qot-JT-dGg"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -47,7 +96,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yUc-5T-Pqv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="191" y="-29"/>
+            <point key="canvasLocation" x="190.07633587786259" y="-29.577464788732396"/>
         </scene>
     </scenes>
     <resources>
